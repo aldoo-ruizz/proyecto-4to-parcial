@@ -16,5 +16,7 @@ namespace proyecto_4to_parcial
         {
             InitializeComponent();
         }
+
+      
     }
 }
