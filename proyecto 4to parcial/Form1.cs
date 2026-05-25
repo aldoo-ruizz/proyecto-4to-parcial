@@ -18,5 +18,37 @@ namespace proyecto_4to_parcial
         }
 
       
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void librosToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmLibros frmlibros = new frmLibros(this);
+            frmlibros.MdiParent = this;
+            frmlibros.Show();
+        }
+
+        private void sociosToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void prestamosToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void reportesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmPrincipal_Load(object sender, EventArgs e)
+        {
+          
+        }
     }
 }

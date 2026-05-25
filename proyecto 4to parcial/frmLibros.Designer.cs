@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -46,7 +47,9 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.dgvLibros = new System.Windows.Forms.DataGridView();
+            this.bs2 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvLibros)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -93,7 +96,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(28, 212);
+            this.label5.Location = new System.Drawing.Point(12, 212);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(81, 18);
             this.label5.TabIndex = 4;
@@ -149,9 +152,8 @@
             this.chbDisp.AutoSize = true;
             this.chbDisp.Location = new System.Drawing.Point(115, 213);
             this.chbDisp.Name = "chbDisp";
-            this.chbDisp.Size = new System.Drawing.Size(95, 20);
+            this.chbDisp.Size = new System.Drawing.Size(18, 17);
             this.chbDisp.TabIndex = 11;
-            this.chbDisp.Text = "checkBox1";
             this.chbDisp.UseVisualStyleBackColor = true;
             // 
             // btnAgregar
@@ -162,6 +164,7 @@
             this.btnAgregar.TabIndex = 12;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnModificar
             // 
@@ -171,6 +174,7 @@
             this.btnModificar.TabIndex = 13;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnEliminar
             // 
@@ -180,6 +184,7 @@
             this.btnEliminar.TabIndex = 14;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnLimpiar
             // 
@@ -189,6 +194,7 @@
             this.btnLimpiar.TabIndex = 15;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnBuscar
             // 
@@ -198,6 +204,7 @@
             this.btnBuscar.TabIndex = 16;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // dgvLibros
             // 
@@ -234,7 +241,9 @@
             this.Controls.Add(this.label1);
             this.Name = "frmLibros";
             this.Text = "frmLibros";
+            this.Load += new System.EventHandler(this.frmLibros_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvLibros)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bs2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,5 +269,6 @@
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.DataGridView dgvLibros;
+        private System.Windows.Forms.BindingSource bs2;
     }
 }

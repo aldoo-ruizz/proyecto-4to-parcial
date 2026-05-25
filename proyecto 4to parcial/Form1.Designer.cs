@@ -28,22 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.librosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sociosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.prestamosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bs1 = new System.Windows.Forms.BindingSource(this.components);
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sociosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.librosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.sociosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.prestamosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.prestamosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.librosMásPrestadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sociosActivosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.prestamosActivosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bs1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -65,8 +59,15 @@
             this.librosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.salirToolStripMenuItem});
             this.librosToolStripMenuItem.Name = "librosToolStripMenuItem";
-            this.librosToolStripMenuItem.Size = new System.Drawing.Size(73, 26);
+            this.librosToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
             this.librosToolStripMenuItem.Text = "Archivo";
+            // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(121, 26);
+            this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // sociosToolStripMenuItem
             // 
@@ -74,68 +75,44 @@
             this.librosToolStripMenuItem1,
             this.sociosToolStripMenuItem1});
             this.sociosToolStripMenuItem.Name = "sociosToolStripMenuItem";
-            this.sociosToolStripMenuItem.Size = new System.Drawing.Size(84, 26);
+            this.sociosToolStripMenuItem.Size = new System.Drawing.Size(84, 24);
             this.sociosToolStripMenuItem.Text = "Catálogo";
-            // 
-            // prestamosToolStripMenuItem
-            // 
-            this.prestamosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.prestamosToolStripMenuItem1});
-            this.prestamosToolStripMenuItem.Name = "prestamosToolStripMenuItem";
-            this.prestamosToolStripMenuItem.Size = new System.Drawing.Size(81, 26);
-            this.prestamosToolStripMenuItem.Text = "Procesos";
-            // 
-            // reportesToolStripMenuItem
-            // 
-            this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.librosMásPrestadosToolStripMenuItem,
-            this.sociosActivosToolStripMenuItem,
-            this.prestamosActivosToolStripMenuItem});
-            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(82, 26);
-            this.reportesToolStripMenuItem.Text = "Reportes";
-            // 
-            // salirToolStripMenuItem
-            // 
-            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.salirToolStripMenuItem.Text = "Salir";
             // 
             // librosToolStripMenuItem1
             // 
             this.librosToolStripMenuItem1.Name = "librosToolStripMenuItem1";
             this.librosToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
             this.librosToolStripMenuItem1.Text = "Libros";
+            this.librosToolStripMenuItem1.Click += new System.EventHandler(this.librosToolStripMenuItem1_Click);
             // 
             // sociosToolStripMenuItem1
             // 
             this.sociosToolStripMenuItem1.Name = "sociosToolStripMenuItem1";
             this.sociosToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
             this.sociosToolStripMenuItem1.Text = "Socios";
+            this.sociosToolStripMenuItem1.Click += new System.EventHandler(this.sociosToolStripMenuItem1_Click);
+            // 
+            // prestamosToolStripMenuItem
+            // 
+            this.prestamosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.prestamosToolStripMenuItem1});
+            this.prestamosToolStripMenuItem.Name = "prestamosToolStripMenuItem";
+            this.prestamosToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
+            this.prestamosToolStripMenuItem.Text = "Procesos";
             // 
             // prestamosToolStripMenuItem1
             // 
             this.prestamosToolStripMenuItem1.Name = "prestamosToolStripMenuItem1";
             this.prestamosToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
             this.prestamosToolStripMenuItem1.Text = "Prestamos";
+            this.prestamosToolStripMenuItem1.Click += new System.EventHandler(this.prestamosToolStripMenuItem1_Click);
             // 
-            // librosMásPrestadosToolStripMenuItem
+            // reportesToolStripMenuItem
             // 
-            this.librosMásPrestadosToolStripMenuItem.Name = "librosMásPrestadosToolStripMenuItem";
-            this.librosMásPrestadosToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
-            this.librosMásPrestadosToolStripMenuItem.Text = "Libros más prestados";
-            // 
-            // sociosActivosToolStripMenuItem
-            // 
-            this.sociosActivosToolStripMenuItem.Name = "sociosActivosToolStripMenuItem";
-            this.sociosActivosToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
-            this.sociosActivosToolStripMenuItem.Text = "Socios activos";
-            // 
-            // prestamosActivosToolStripMenuItem
-            // 
-            this.prestamosActivosToolStripMenuItem.Name = "prestamosActivosToolStripMenuItem";
-            this.prestamosActivosToolStripMenuItem.Size = new System.Drawing.Size(232, 26);
-            this.prestamosActivosToolStripMenuItem.Text = "Prestamos activos";
+            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
+            this.reportesToolStripMenuItem.Text = "Reportes";
+            this.reportesToolStripMenuItem.Click += new System.EventHandler(this.reportesToolStripMenuItem_Click);
             // 
             // frmPrincipal
             // 
@@ -147,9 +124,10 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmPrincipal";
             this.Text = "frmPrincipal";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.frmPrincipal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bs1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,14 +140,10 @@
         private System.Windows.Forms.ToolStripMenuItem sociosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem prestamosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem;
-        private System.Windows.Forms.BindingSource bs1;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem librosToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem sociosToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem prestamosToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem librosMásPrestadosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sociosActivosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem prestamosActivosToolStripMenuItem;
     }
 }
 
