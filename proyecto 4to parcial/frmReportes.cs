@@ -169,7 +169,7 @@ namespace proyecto_4to_parcial
         List<Socio> socios = cargarSocios();
         List<Prestamo> prestamos = cargarPrestamos();
 
-            List<object> consulta = new List<object>();
+        List<object> consulta = new List<object>();
 
             foreach (Prestamo p in prestamos)
             {
