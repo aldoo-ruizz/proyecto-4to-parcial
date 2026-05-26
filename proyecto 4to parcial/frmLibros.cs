@@ -303,6 +303,8 @@ namespace proyecto_4to_parcial
 
         private void limpiar()
         {
+            dgvLibros.SelectionChanged -= dgvLibros_SelectionChanged;
+
             idSeleccionado = 0;
 
             txbTitulo.Clear();
@@ -314,6 +316,9 @@ namespace proyecto_4to_parcial
             chbDisp.Checked = true;
 
             dgvLibros.ClearSelection();
+            try { dgvLibros.CurrentCell = null; } catch { }
+
+            dgvLibros.SelectionChanged += dgvLibros_SelectionChanged;
         }
     }
 }

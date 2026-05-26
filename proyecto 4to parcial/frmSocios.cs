@@ -306,6 +306,8 @@ namespace proyecto_4to_parcial
 
         private void limpiar()
         {
+            dgvSocios.SelectionChanged -= dgvSocios_SelectionChanged;
+
             idSeleccionado = 0;
 
             txbNombre.Clear();
@@ -317,6 +319,9 @@ namespace proyecto_4to_parcial
             dtpFecha.Value = DateTime.Today;
 
             dgvSocios.ClearSelection();
+            try { dgvSocios.CurrentCell = null; } catch { }
+
+            dgvSocios.SelectionChanged += dgvSocios_SelectionChanged;
         }
 
     }
