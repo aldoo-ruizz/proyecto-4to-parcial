@@ -25,6 +25,14 @@ namespace proyecto_4to_parcial
         InitializeComponent();
 
         objform1 = formulario1;
+
+        btnLibrosPrestados.Click += btnLibrosPrestados_Click;
+        btnSociosActivos.Click += btnSociosActivos_Click;
+        btnPrestamosActivos.Click += btnPrestamosActivos_Click;
+        btnLibrosDisponibles.Click += btnLibrosDisponibles_Click;
+        btnSociossPrestamos.Click += btnSociossPrestamos_Click; 
+
+
     }
 
     private void frmReportes_Load(object sender, EventArgs e)
@@ -170,15 +178,7 @@ namespace proyecto_4to_parcial
                     Libro libro = libros.FirstOrDefault(x => x.Id == p.IdLibro);
                     Socio socio = socios.FirstOrDefault(x => x.Id == p.IdSocio);
 
-                    consulta.Add(new
-                    {
-                        p.Id,
-                        Libro = libro.Titulo,
-                        Socio = socio.Nombre,
-                        FechaPrestamo = p.FechaPrestamo.ToString("yyyy-MM-dd"),
-                        Dias = (DateTime.Today - p.FechaPrestamo.Date).Days,
-                        p.Estado
-                    });
+                    consulta.Add(new{p.Id,Libro = libro.Titulo,Socio = socio.Nombre,FechaPrestamo = p.FechaPrestamo.ToString("yyyy-MM-dd"),Dias = (DateTime.Today - p.FechaPrestamo.Date).Days,p.Estado});
                 }
             }
 
