@@ -12,8 +12,14 @@ using System.Windows.Forms;
 
 namespace proyecto_4to_parcial
 {
+    /// <summary>
+    /// ARD 25052026
+    /// En este formulario se pueden administrar los socios, se pueden agregar, modificar, eliminar y buscar socios la información se guarda y se carga desde un archivo txt, también valida que no existan emails repetidos, que el email tenga formato correcto, que el teléfono tenga al menos 10 dígitos y que no se puedan eliminar socios con préstamos activos.
+    /// </summary>
     public partial class frmSocios : Form
     {
+        frmPrincipal objform1 = new frmPrincipal();
+
         List<Socio> lista = new List<Socio>();
 
         string ruta = "Socios.txt";
@@ -21,16 +27,20 @@ namespace proyecto_4to_parcial
 
         int idSeleccionado = 0;
 
-        public frmSocios()
+        public frmSocios(frmPrincipal formulario1)
         {
             InitializeComponent();
 
+            objform1 = formulario1;
+
             this.Load += frmSocios_Load;
+
             btnAgregar.Click += btnAgregar_Click;
             btnModificar.Click += btnModificar_Click;
             btnEliminar.Click += btnEliminar_Click;
             btnBuscar.Click += btnBuscar_Click;
             btnLimpiar.Click += btnLimpiar_Click;
+
             dgvSocios.SelectionChanged += dgvSocios_SelectionChanged;
         }
 
@@ -76,14 +86,7 @@ namespace proyecto_4to_parcial
 
                     if (datos.Length >= 6)
                     {
-                        lista.Add(new Socio(
-                            int.Parse(datos[0]),
-                            datos[1],
-                            datos[2],
-                            datos[3],
-                            datos[4],
-                            DateTime.Parse(datos[5])
-                        ));
+                        lista.Add(new Socio(int.Parse(datos[0]), datos[1], datos[2], datos[3], datos[4], DateTime.Parse(datos[5])));
                     }
                 }
             }
@@ -125,14 +128,7 @@ namespace proyecto_4to_parcial
                 return;
             }
 
-            Socio nuevo = new Socio(
-                siguienteId(),
-                txbNombre.Text,
-                txbDireccion.Text,
-                txbTelefono.Text,
-                txbEmail.Text,
-                dtpFecha.Value.Date
-            );
+            Socio nuevo = new Socio(siguienteId(), txbNombre.Text, txbDireccion.Text, txbTelefono.Text, txbEmail.Text, dtpFecha.Value.Date);
 
             lista.Add(nuevo);
 
@@ -154,7 +150,7 @@ namespace proyecto_4to_parcial
             if (validar(idSeleccionado) == false)
             {
                 return;
-            }
+            }   
 
             Socio socio = lista.FirstOrDefault(x => x.Id == idSeleccionado);
 
@@ -206,9 +202,7 @@ namespace proyecto_4to_parcial
         {
             string buscar = txbBuscar.Text.ToLower();
 
-            var resultado = lista.Where(x =>
-                x.Nombre.ToLower().Contains(buscar) ||
-                x.Email.ToLower().Contains(buscar)).ToList();
+            var resultado = lista.Where(x => x.Nombre.ToLower().Contains(buscar) || x.Email.ToLower().Contains(buscar)).ToList();
 
             dgvSocios.DataSource = null;
             dgvSocios.DataSource = resultado;
@@ -240,15 +234,13 @@ namespace proyecto_4to_parcial
             txbDireccion.Text = socio.Direccion;
             txbTelefono.Text = socio.Telefono;
             txbEmail.Text = socio.Email;
+
             dtpFecha.Value = socio.FechaRegistro;
         }
 
         private bool validar(int idActual)
         {
-            if (txbNombre.Text.Trim() == "" ||
-                txbDireccion.Text.Trim() == "" ||
-                txbTelefono.Text.Trim() == "" ||
-                txbEmail.Text.Trim() == "")
+            if (txbNombre.Text.Trim() == "" || txbDireccion.Text.Trim() == "" || txbTelefono.Text.Trim() == "" || txbEmail.Text.Trim() == "")
             {
                 MessageBox.Show("Nombre, Dirección, Teléfono y Email no pueden estar vacíos");
                 return false;
@@ -268,9 +260,7 @@ namespace proyecto_4to_parcial
                 return false;
             }
 
-            bool emailExiste = lista.Any(x =>
-                x.Email.ToLower() == txbEmail.Text.ToLower() &&
-                x.Id != idActual);
+            bool emailExiste = lista.Any(x => x.Email.ToLower() == txbEmail.Text.ToLower() && x.Id != idActual);
 
             if (emailExiste)
             {
@@ -328,6 +318,7 @@ namespace proyecto_4to_parcial
 
             dgvSocios.ClearSelection();
         }
+
     }
 }
 

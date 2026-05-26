@@ -14,6 +14,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace proyecto_4to_parcial
 {
+    /// <summary>
+    /// ARD 25052026
+    /// Este formulario permite administrar libros, se pueden agregar, modificar, eliminar y buscar libros la información se guarda y se carga desde un archivo txt, también valida que no existan ISBN repetidos y que los datos sean correctos.
+    /// </summary>
     public partial class frmLibros : Form
     {
         frmPrincipal objform1 = new frmPrincipal();
@@ -27,8 +31,10 @@ namespace proyecto_4to_parcial
         public frmLibros(frmPrincipal formulario1)
         {
             InitializeComponent();
+
             objform1 = formulario1;
 
+            this.Load += frmLibros_Load;
             dgvLibros.SelectionChanged += dgvLibros_SelectionChanged;
         }
 
@@ -41,8 +47,8 @@ namespace proyecto_4to_parcial
 
         private void inicializargrid()
         {
-            bs2.DataSource = lista;
-            dgvLibros.DataSource = bs2;
+            dgvLibros.DataSource = null;
+            dgvLibros.DataSource = lista;
 
             dgvLibros.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvLibros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -52,9 +58,8 @@ namespace proyecto_4to_parcial
 
         private void refrescar()
         {
-            bs2.DataSource = null;
-            bs2.DataSource = lista;
-            dgvLibros.DataSource = bs2;
+            dgvLibros.DataSource = null;
+            dgvLibros.DataSource = lista;
         }
 
         private void cargararchivo()
@@ -76,14 +81,7 @@ namespace proyecto_4to_parcial
 
                     if (datos.Length >= 6)
                     {
-                        lista.Add(new Libro(
-                            int.Parse(datos[0]),
-                            datos[1],
-                            datos[2],
-                            datos[3],
-                            int.Parse(datos[4]),
-                            bool.Parse(datos[5])
-                        ));
+                        lista.Add(new Libro(int.Parse(datos[0]), datos[1], datos[2], datos[3], int.Parse(datos[4]), bool.Parse(datos[5])));
                     }
                 }
             }
@@ -95,6 +93,8 @@ namespace proyecto_4to_parcial
 
                 guardararchivo();
             }
+
+            refrescar();
         }
 
         private void guardararchivo()
@@ -126,14 +126,7 @@ namespace proyecto_4to_parcial
                 return;
             }
 
-            Libro nuevo = new Libro(
-                siguienteId(),
-                txbTitulo.Text,
-                txbAutor.Text,
-                txbISBN.Text,
-                int.Parse(txbAño.Text),
-                chbDisp.Checked
-            );
+            Libro nuevo = new Libro(siguienteId(), txbTitulo.Text, txbAutor.Text, txbISBN.Text, int.Parse(txbAño.Text), chbDisp.Checked);
 
             lista.Add(nuevo);
 
@@ -179,13 +172,10 @@ namespace proyecto_4to_parcial
         {
             string buscar = txbBuscar.Text.ToLower();
 
-            var resultado = lista.Where(x =>
-                x.Titulo.ToLower().Contains(buscar) ||
-                x.Autor.ToLower().Contains(buscar)).ToList();
+            var resultado = lista.Where(x => x.Titulo.ToLower().Contains(buscar) || x.Autor.ToLower().Contains(buscar)).ToList();
 
-            bs2.DataSource = null;
-            bs2.DataSource = resultado;
-            dgvLibros.DataSource = bs2;
+            dgvLibros.DataSource = null;
+            dgvLibros.DataSource = resultado;
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -247,10 +237,7 @@ namespace proyecto_4to_parcial
 
         private bool validar(int idActual)
         {
-            if (txbTitulo.Text.Trim() == "" ||
-                txbAutor.Text.Trim() == "" ||
-                txbISBN.Text.Trim() == "" ||
-                txbAño.Text.Trim() == "")
+            if (txbTitulo.Text.Trim() == "" || txbAutor.Text.Trim() == "" || txbISBN.Text.Trim() == "" || txbAño.Text.Trim() == "")
             {
                 MessageBox.Show("Título, Autor, ISBN y Año no pueden estar vacíos");
                 return false;
@@ -270,9 +257,7 @@ namespace proyecto_4to_parcial
                 return false;
             }
 
-            bool isbnExiste = lista.Any(x =>
-                x.ISBN.ToLower() == txbISBN.Text.ToLower() &&
-                x.Id != idActual);
+            bool isbnExiste = lista.Any(x => x.ISBN.ToLower() == txbISBN.Text.ToLower() && x.Id != idActual);
 
             if (isbnExiste)
             {

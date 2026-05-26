@@ -12,8 +12,14 @@ using System.Windows.Forms;
 
 namespace proyecto_4to_parcial
 {
+    /// <summary>
+    /// ARD 25052026
+    /// En este formulario se pueden administrar los préstamos, se pueden registrar nuevos préstamos y devoluciones, la información se guarda y se carga desde un archivo txt, también valida que un socio no tenga más de 3 préstamos activos, que el libro esté disponible para prestar y que no se puedan devolver préstamos ya devueltos, además actualiza el estado de los préstamos vencidos automáticamente al cargar el formulario.
+    /// </summary>
     public partial class frmPrestamos : Form
     {
+        frmPrincipal objform1 = new frmPrincipal();
+
         List<Libro> libros = new List<Libro>();
         List<Socio> socios = new List<Socio>();
         List<Prestamo> prestamos = new List<Prestamo>();
@@ -22,9 +28,11 @@ namespace proyecto_4to_parcial
         string rutaSocios = "Socios.txt";
         string rutaPrestamos = "Prestamos.txt";
 
-        public frmPrestamos()
+        public frmPrestamos(frmPrincipal formulario1)
         {
             InitializeComponent();
+
+            objform1 = formulario1;
 
             this.Load += frmPrestamos_Load;
             btnPrestamo.Click += btnPrestamo_Click;
@@ -73,14 +81,7 @@ namespace proyecto_4to_parcial
 
                     if (datos.Length >= 6)
                     {
-                        libros.Add(new Libro(
-                            int.Parse(datos[0]),
-                            datos[1],
-                            datos[2],
-                            datos[3],
-                            int.Parse(datos[4]),
-                            bool.Parse(datos[5])
-                        ));
+                        libros.Add(new Libro(int.Parse(datos[0]), datos[1], datos[2], datos[3], int.Parse(datos[4]), bool.Parse(datos[5])));
                     }
                 }
             }
@@ -125,14 +126,7 @@ namespace proyecto_4to_parcial
 
                     if (datos.Length >= 6)
                     {
-                        socios.Add(new Socio(
-                            int.Parse(datos[0]),
-                            datos[1],
-                            datos[2],
-                            datos[3],
-                            datos[4],
-                            DateTime.Parse(datos[5])
-                        ));
+                        socios.Add(new Socio(int.Parse(datos[0]), datos[1], datos[2], datos[3], datos[4], DateTime.Parse(datos[5])));
                     }
                 }
             }
@@ -183,14 +177,7 @@ namespace proyecto_4to_parcial
                             fechaDevolucion = DateTime.Parse(datos[4]);
                         }
 
-                        prestamos.Add(new Prestamo(
-                            int.Parse(datos[0]),
-                            int.Parse(datos[1]),
-                            int.Parse(datos[2]),
-                            DateTime.Parse(datos[3]),
-                            fechaDevolucion,
-                            datos[5]
-                        ));
+                        prestamos.Add(new Prestamo(int.Parse(datos[0]), int.Parse(datos[1]), int.Parse(datos[2]), DateTime.Parse(datos[3]), fechaDevolucion, datos[5]));
                     }
                 }
             }
@@ -266,22 +253,31 @@ namespace proyecto_4to_parcial
 
         private void mostrarPrestamos()
         {
-            var consulta = from p in prestamos
-                           join l in libros on p.IdLibro equals l.Id
-                           join s in socios on p.IdSocio equals s.Id
-                           orderby p.Id descending
-                           select new
-                           {
-                               Id = p.Id,
-                               Libro = l.Titulo,
-                               Socio = s.Nombre,
-                               FechaPrestamo = p.FechaPrestamo.ToString("yyyy-MM-dd"),
-                               FechaDevolucion = p.FechaDevolucion == null ? "Pendiente" : p.FechaDevolucion.Value.ToString("yyyy-MM-dd"),
-                               Estado = p.Estado
-                           };
+         
+        {
+            List<object> consulta = new List<object>();
+
+            foreach (Prestamo p in prestamos)
+            {
+                Libro libro = libros.FirstOrDefault(x => x.Id == p.IdLibro);
+                Socio socio = socios.FirstOrDefault(x => x.Id == p.IdSocio);
+
+                consulta.Add(new
+                {
+                    Id = p.Id,
+                    Libro = libro.Titulo,
+                    Socio = socio.Nombre,
+                    FechaPrestamo = p.FechaPrestamo.ToString("yyyy-MM-dd"),
+                    FechaDevolucion = p.FechaDevolucion == null ? "Pendiente" : p.FechaDevolucion.Value.ToString("yyyy-MM-dd"),
+                    Estado = p.Estado
+                });
+            }
+
+            consulta = consulta.OrderByDescending(x => ((dynamic)x).Id).ToList();
 
             dgvPrestamos.DataSource = null;
-            dgvPrestamos.DataSource = consulta.ToList();
+            dgvPrestamos.DataSource = consulta;
+        }
         }
 
         private void btnPrestamo_Click(object sender, EventArgs e)
@@ -307,9 +303,7 @@ namespace proyecto_4to_parcial
                 return;
             }
 
-            int prestamosActivos = prestamos.Count(x =>
-                x.IdSocio == socio.Id &&
-                x.Estado != "Devuelto");
+            int prestamosActivos = prestamos.Count(x => x.IdSocio == socio.Id && x.Estado != "Devuelto");
 
             if (prestamosActivos >= 3)
             {
@@ -323,16 +317,10 @@ namespace proyecto_4to_parcial
                 return;
             }
 
-            Prestamo nuevo = new Prestamo(
-                siguienteIdPrestamo(),
-                libro.Id,
-                socio.Id,
-                dtpFecha.Value.Date,
-                null,
-                "Activo"
-            );
+            Prestamo nuevo = new Prestamo(siguienteIdPrestamo(), libro.Id, socio.Id, dtpFecha.Value.Date, null, "Activo");
 
             prestamos.Add(nuevo);
+
             libro.Disponible = false;
 
             guardarPrestamos();
@@ -385,6 +373,5 @@ namespace proyecto_4to_parcial
             MessageBox.Show("Devolución registrada correctamente");
         }
     }
-
 }
 
